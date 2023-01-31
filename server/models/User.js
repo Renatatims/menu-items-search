@@ -1,22 +1,45 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
+const foodSchema = require("./Food")
 
 const userSchema = new Schema({
-  name: {
+  firstName: {
     type: String,
     required: true,
     trim: true
   },
-  password: {
+  lastName: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   email: {
     type: String,
     required: true
   },
+  password: {
+    type: String,
+    required: true
+  },
+  favorites: [foodSchema],
  
 });
+
+// middleware to create password
+userSchema.pre('save', async function(next) {
+  if (this.isNew || this.isModified('password')) {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
+  }
+
+  next();
+});
+
+// hashed password compared with user's input
+userSchema.methods.isCorrectPassword = async function(password) {
+  console.log(password)
+  return bcrypt.compare(password, this.password);
+};
 
 const User = model('User', userSchema);
 
