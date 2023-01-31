@@ -3,7 +3,7 @@ const { User } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
-  //Queries  
+  //Queries
   Query: {
     user: async (parent, args, context) => {
       if (context.user) {
@@ -39,6 +39,36 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+
+    //Add menu item to user's favorites
+    saveFood: async (parent, { foodData }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { favorites: foodData } },
+          { new: true }
+        );
+
+        return updatedUser;
+      }
+
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
+    //Remove menu item from user's favorites
+    removeFood: async (parent, { foodId }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { favorites: { foodId } } },
+          { new: true }
+        );
+
+        return updatedUser;
+      }
+
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };
