@@ -6,10 +6,10 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
-//import Home from "./pages/Home";
+import Home from "./pages/Home";
 //import Signup from "./pages/Signup";
 //import Login from "./pages/Login";
 
@@ -40,13 +40,15 @@ function App() {
       <Router>
         <>
           <Navbar />
-          {/*
+          
           <Routes>
             <Route path="/" element={<Home />} />
+            {/*
             <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
+            */}
           </Routes>
-          */}
+          
         </>
       </Router>
     </ApolloProvider>
