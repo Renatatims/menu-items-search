@@ -22,5 +22,8 @@
   "homepage": "https://github.com/Renatatims/menu-items-search#readme",
   "devDependencies": {
     "concurrently": "^7.6.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
   }
 }

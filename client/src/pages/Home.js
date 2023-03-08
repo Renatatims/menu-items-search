@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+//API KEY
+const API_KEY = process.env.REACT_APP_API_KEY;
+
 const SearchFood = () => {
   // create state for holding returned Spoonacular api data
   const [searchedFoods, setSearchedFoods] = useState([]);
@@ -10,10 +13,38 @@ const SearchFood = () => {
   // Include API call
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    //{searchInput} in the API call
-    setSearchedFoods();
-    setSearchInput("");
 
+    if (!searchInput) {
+      return false;
+    }
+
+    try {
+      //Spoonacular API - menu items
+      const response = await fetch(
+        `https://api.spoonacular.com/food/menuItems/search?query=${searchInput}&addMenuItemInformation=true&apiKey=${API_KEY}`
+      );
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error("something went wrong!");
+      }
+
+      const { menuItems } = await response.json();
+
+      const foodData = menuItems.map((food) => ({
+        foodId: food.id,
+        title: food.title,
+        description: food.nutrition.protein,
+        image: food.image,
+      }));
+
+      console.log(menuItems);
+
+      setSearchedFoods(foodData);
+      setSearchInput("");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
