@@ -1,5 +1,12 @@
 import React, { useState } from "react";
 
+//Material UI imports
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+
 //API KEY
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -53,16 +60,26 @@ const SearchFood = () => {
         <input onChange={(e) => setSearchInput(e.target.value)}></input>
         <button type="submit">SUBMIT</button>
       </form>
-      <div>
-        {searchedFoods.map((food) => {
-          return (
-            <div key={food.foodId}>
-              <p>{food.title}</p>
-              <p>{food.description}</p>
-            </div>
-          );
-        })}
-      </div>
+      <Grid container spacing={3}>
+        {searchedFoods.map((food) => (
+          <Grid item xs={12} sm={6} md={4} key={food.foodId}>
+            <Card sx={{ width: 345, height:345, boxShadow: 8 }}>
+              <CardMedia
+                component="img"
+                image={food.image}
+                alt={food.title}
+                sx={{ width: 345, height:200}}
+              />
+              <CardContent>
+                <Typography variant="h5">{food.title}</Typography>
+                <Typography variant="body2">
+                  Protein: {food.description}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </>
   );
 };
