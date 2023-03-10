@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import FoodModal from "../components/FoodModal/index";
+
 //Material UI imports
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -11,12 +13,26 @@ import Typography from "@mui/material/Typography";
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 const SearchFood = () => {
+  //Modal - useState
+  const [modalShow, setModalShow] = useState(false);
+
+  //Open Modal
+  const handleOpenModal = () => {
+    setModalShow(true);
+  };
+
+  console.log(handleOpenModal);
+
+  //Close Modal
+  const handleCloseModal = () => {
+    setModalShow(false);
+  };
   // create state for holding returned Spoonacular api data
   const [searchedFoods, setSearchedFoods] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState("");
 
-  // create method to search for food and set state on form submit - 
+  // create method to search for food and set state on form submit -
   // Include API call
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -64,30 +80,46 @@ const SearchFood = () => {
         <input onChange={(e) => setSearchInput(e.target.value)}></input>
         <button type="submit">SUBMIT</button>
       </form>
+      <button onClick={() => handleOpenModal()}>Testing Modal</button>
+      <FoodModal open={modalShow} handleClose={handleCloseModal} />
       <Grid container spacing={3}>
         {searchedFoods.map((food) => (
-          <Grid item xs={12} sm={6} md={6} lg={4} key={food.foodId} align="center">
-            <Card sx={{ width: 345, height:380, boxShadow: 8, m:5}}>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={6}
+            lg={4}
+            key={food.foodId}
+            align="center"
+          >
+            <Card
+              sx={{ width: 345, height: 380, boxShadow: 8, m: 5 }}
+            >
               <CardMedia
                 component="img"
                 image={food.image}
                 alt={food.title}
-                sx={{ width: 345, height:200}}
+                sx={{ width: 345, height: 200 }}
               />
-              <CardContent>
+              <CardContent
+                sx={{ cursor: "pointer" }}
+              >
                 <Typography variant="h6">{food.title}</Typography>
                 <Typography variant="body1">{food.restaurant}</Typography>
                 <Typography variant="body3">
-                  Calories: {food.calories},
-                  Carbs:  {food.carbs},
-                  Fat: {food.fat}, 
-                  Protein: {food.protein}
+                  Calories: {food.calories}, Carbs: {food.carbs}, Fat:{" "}
+                  {food.fat}, Protein: {food.protein}
                 </Typography>
               </CardContent>
             </Card>
+            
           </Grid>
         ))}
       </Grid>
+      
+     
+      
     </>
   );
 };
