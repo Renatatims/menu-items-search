@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,6 +16,8 @@ import MailIcon from "@mui/icons-material/Mail";
 //import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+
+import LoginModal from "../LoginModal/index";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -81,6 +83,22 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  //Login Modal
+  //Modal - useState
+  const [modalShow, setModalShow] = useState(false);
+
+  //Open Modal
+  const handleOpenModal = () => {
+    setModalShow(true);
+  };
+
+  console.log(handleOpenModal);
+
+  //Close Modal
+  const handleCloseModal = () => {
+    setModalShow(false);
+  };
+
   const menuId = "secondary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -98,7 +116,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleOpenModal}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -241,6 +259,7 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      <LoginModal open={modalShow} handleClose={handleCloseModal} />
     </Box>
   );
 }
