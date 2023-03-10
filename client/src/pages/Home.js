@@ -41,7 +41,11 @@ const SearchFood = () => {
       const foodData = menuItems.map((food) => ({
         foodId: food.id,
         title: food.title,
-        description: food.nutrition.protein,
+        restaurant: food.restaurantChain,
+        calories: food.nutrition.calories,
+        carbs: food.nutrition.carbs,
+        fat: food.nutrition.fat,
+        protein: food.nutrition.protein,
         image: food.image,
       }));
 
@@ -62,8 +66,8 @@ const SearchFood = () => {
       </form>
       <Grid container spacing={3}>
         {searchedFoods.map((food) => (
-          <Grid item xs={12} sm={6} md={4} key={food.foodId}>
-            <Card sx={{ width: 345, height:345, boxShadow: 8 }}>
+          <Grid item xs={12} sm={6} md={6} lg={4} key={food.foodId} align="center">
+            <Card sx={{ width: 345, height:380, boxShadow: 8, m:5}}>
               <CardMedia
                 component="img"
                 image={food.image}
@@ -71,9 +75,13 @@ const SearchFood = () => {
                 sx={{ width: 345, height:200}}
               />
               <CardContent>
-                <Typography variant="h5">{food.title}</Typography>
-                <Typography variant="body2">
-                  Protein: {food.description}
+                <Typography variant="h6">{food.title}</Typography>
+                <Typography variant="body1">{food.restaurant}</Typography>
+                <Typography variant="body3">
+                  Calories: {food.calories},
+                  Carbs:  {food.carbs},
+                  Fat: {food.fat}, 
+                  Protein: {food.protein}
                 </Typography>
               </CardContent>
             </Card>
