@@ -40,7 +40,7 @@ function FoodModal(props) {
         </IconButton>
         <Stack>
           <Typography>{props.title}</Typography>
-          <img src="https://via.placeholder.com/150" alt="foodImage"></img>
+          <img src={props.image} alt="foodImage"></img>
         </Stack>
       </Box>
     </Modal>

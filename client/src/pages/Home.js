@@ -16,11 +16,11 @@ const SearchFood = () => {
   //Modal - useState
   const [modalShow, setModalShow] = useState(false);
   //Foods - useState
-  const [food, setFood] = useState({});
+  /*const [food, setFood] = useState({});*/
 
   //Open Modal
-  const handleOpenModal = (title) => {
-    setFood(title);
+  const handleOpenModal = (title,image) => {
+    /*setFood(title, image);*/
     setModalShow(true);
   };
 
@@ -99,7 +99,7 @@ const SearchFood = () => {
           >
             <Card
               sx={{ width: 345, height: 380, boxShadow: 8, m: 5 }}
-              onClick={() => handleOpenModal(`${food.title}`)}
+              onClick={() => handleOpenModal(`${food.title}`,`${food.image}` )}
             >
               <CardMedia
                 component="img"
@@ -120,7 +120,8 @@ const SearchFood = () => {
               open={modalShow}
               handleClose={handleCloseModal}
               title={food.title}
-            />
+              image={food.image}
+             />
           </Grid>
         ))}
       </Grid>
