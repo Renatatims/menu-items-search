@@ -7,7 +7,8 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
 function FoodModal(props) {
-  const { open, handleClose } = props;
+  const { open, handleClose} = props;
+  console.log(props);
 
   return (
     <Modal
@@ -38,7 +39,7 @@ function FoodModal(props) {
           <CloseIcon />
         </IconButton>
         <Stack>
-          <Typography>Food Title</Typography>
+          <Typography>{props.title}</Typography>
           <img src="https://via.placeholder.com/150" alt="foodImage"></img>
         </Stack>
       </Box>

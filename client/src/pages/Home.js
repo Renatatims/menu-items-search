@@ -15,9 +15,12 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 const SearchFood = () => {
   //Modal - useState
   const [modalShow, setModalShow] = useState(false);
+  //Foods - useState
+  const [food, setFood] = useState({});
 
   //Open Modal
-  const handleOpenModal = () => {
+  const handleOpenModal = (title) => {
+    setFood(title);
     setModalShow(true);
   };
 
@@ -44,7 +47,7 @@ const SearchFood = () => {
     try {
       //Spoonacular API - menu items
       const response = await fetch(
-        `https://api.spoonacular.com/food/menuItems/search?query=${searchInput}&addMenuItemInformation=true&apiKey=${API_KEY}`
+        `https://api.spoonacular.com/food/menuItems/search?query=${searchInput}&addMenuItemInformation=true&apiKey=${API_KEY}&number=1`
       );
       console.log(response);
 
@@ -80,8 +83,9 @@ const SearchFood = () => {
         <input onChange={(e) => setSearchInput(e.target.value)}></input>
         <button type="submit">SUBMIT</button>
       </form>
+      {/* Testing Modal
       <button onClick={() => handleOpenModal()}>Testing Modal</button>
-      <FoodModal open={modalShow} handleClose={handleCloseModal} />
+      <FoodModal open={modalShow} handleClose={handleCloseModal}  />*/}
       <Grid container spacing={3}>
         {searchedFoods.map((food) => (
           <Grid
@@ -95,6 +99,7 @@ const SearchFood = () => {
           >
             <Card
               sx={{ width: 345, height: 380, boxShadow: 8, m: 5 }}
+              onClick={() => handleOpenModal(`${food.title}`)}
             >
               <CardMedia
                 component="img"
@@ -102,9 +107,7 @@ const SearchFood = () => {
                 alt={food.title}
                 sx={{ width: 345, height: 200 }}
               />
-              <CardContent
-                sx={{ cursor: "pointer" }}
-              >
+              <CardContent sx={{ cursor: "pointer" }}>
                 <Typography variant="h6">{food.title}</Typography>
                 <Typography variant="body1">{food.restaurant}</Typography>
                 <Typography variant="body3">
@@ -113,13 +116,14 @@ const SearchFood = () => {
                 </Typography>
               </CardContent>
             </Card>
-            
+            <FoodModal
+              open={modalShow}
+              handleClose={handleCloseModal}
+              title={food.title}
+            />
           </Grid>
         ))}
       </Grid>
-      
-     
-      
     </>
   );
 };
