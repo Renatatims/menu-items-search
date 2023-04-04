@@ -13,13 +13,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
-//import NotificationsIcon from "@mui/icons-material/Notifications";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import MoreIcon from "@mui/icons-material/MoreVert";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 //Import Login and Signup modals
 import LoginModal from "../LoginModal/index";
 import SignupModal from "../SignupModal/index";
+import Auth from "../../utils/auth";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -234,20 +235,11 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
-              aria-label="show 4 new mails"
+              aria-label="emails"
               color="inherit"
             >
               <Badge badgeContent={0} color="error">
                 <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={0} color="error">
-                <FavoriteIcon />
               </Badge>
             </IconButton>
             <IconButton
@@ -260,7 +252,36 @@ export default function PrimarySearchAppBar() {
               color="inherit"
             >
               <AccountCircle />
+            </IconButton>  
+            {Auth.loggedIn() ? (
+             <div>
+            <IconButton
+              size="large"
+              aria-label="heart"
+              color="inherit"
+              sx={{ ml: 2 }}
+            >
+              <Badge badgeContent={0} color="error">
+                <FavoriteIcon />
+              </Badge>
             </IconButton>
+            <IconButton
+             size="large"
+             aria-label="logout"
+             color="inherit"
+             onClick={() => {
+              Auth.logout();
+            }}
+           >
+             <Badge badgeContent={0} color="error">
+               <ExitToAppIcon />
+             </Badge>
+           </IconButton>
+           </div>
+            
+            ) : null}
+           
+                    
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -281,5 +302,6 @@ export default function PrimarySearchAppBar() {
       <LoginModal open={modalShow} handleClose={handleCloseModal} />
       <SignupModal open={modalSignupShow} handleClose={handleCloseSignupModal} />
     </Box>
-  );
+   );
 }
+  
