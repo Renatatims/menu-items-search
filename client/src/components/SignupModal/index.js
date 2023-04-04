@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-function LoginModal(props) {
+function SignupModal(props) {
   const { open, handleClose } = props;
 
   return (
@@ -43,14 +43,30 @@ function LoginModal(props) {
           <CloseIcon />
         </IconButton>
         <Stack>
-          <Typography> Login </Typography>
+          <Typography> Signup </Typography>
+          <TextField
+            id="firstName"
+            label="First Name"
+            required
+            fullWidth
+            autoFocus
+            sx={{margin: 2}}
+          />
+          <TextField
+            id="lastName"
+            label="Last Name"
+            type="text"
+            required
+            fullWidth
+            autoFocus
+            sx={{margin: 2}}
+          />
           <TextField
             id="email"
             label="email"
             type="email"
             required
             fullWidth
-            autoFocus
             sx={{margin: 2}}
           />
           <TextField
@@ -67,4 +83,4 @@ function LoginModal(props) {
   );
 }
 
-export default LoginModal;
+export default SignupModal;
