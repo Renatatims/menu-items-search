@@ -21,6 +21,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import LoginModal from "../LoginModal/index";
 import SignupModal from "../SignupModal/index";
 import Auth from "../../utils/auth";
+import { Link } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -136,7 +137,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleOpenModal}>Profile</MenuItem>
+      <MenuItem onClick={handleOpenModal}>Login</MenuItem>
       <MenuItem onClick={handleOpenSignupModal}>Signup</MenuItem>
     </Menu>
   );
@@ -255,6 +256,7 @@ export default function PrimarySearchAppBar() {
             </IconButton>  
             {Auth.loggedIn() ? (
              <div>
+            <Link to="/Favorites">
             <IconButton
               size="large"
               aria-label="heart"
@@ -265,6 +267,7 @@ export default function PrimarySearchAppBar() {
                 <FavoriteIcon />
               </Badge>
             </IconButton>
+            </Link>
             <IconButton
              size="large"
              aria-label="logout"
@@ -279,9 +282,7 @@ export default function PrimarySearchAppBar() {
            </IconButton>
            </div>
             
-            ) : null}
-           
-                    
+            ) : null}   
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
