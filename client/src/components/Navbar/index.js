@@ -17,7 +17,9 @@ import MailIcon from "@mui/icons-material/Mail";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
+//Import Login and Signup modals
 import LoginModal from "../LoginModal/index";
+import SignupModal from "../SignupModal/index";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -99,6 +101,23 @@ export default function PrimarySearchAppBar() {
     setModalShow(false);
   };
 
+
+  //Signup Modal
+  //Modal - useState
+  const [modalSignupShow, setSignupModalShow] = useState(false);
+
+  //Open Modal
+  const handleOpenSignupModal = () => {
+    setSignupModalShow(true);
+  };
+
+  console.log(handleOpenModal);
+
+  //Close Modal
+  const handleCloseSignupModal = () => {
+    setSignupModalShow(false);
+  };
+
   const menuId = "secondary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -117,7 +136,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleOpenModal}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Signup</MenuItem>
+      <MenuItem onClick={handleOpenSignupModal}>Signup</MenuItem>
     </Menu>
   );
 
@@ -260,6 +279,7 @@ export default function PrimarySearchAppBar() {
       {renderMobileMenu}
       {renderMenu}
       <LoginModal open={modalShow} handleClose={handleCloseModal} />
+      <SignupModal open={modalSignupShow} handleClose={handleCloseSignupModal} />
     </Box>
   );
 }
